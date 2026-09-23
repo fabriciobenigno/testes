@@ -1,23 +1,30 @@
 <!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#090d13'><title>Tô Sem Assunto</title>
+
 <style>
-:root{--bg:#090d13;--panel:#141a23;--panel2:#1b2330;--panel3:#273243;--text:#f5f7fa;--muted:#96a2b3;--border:rgba(255,255,255,.085);--accent:#8b5cf6;--accent2:#bba8ff;--danger:#f07982}
+:root{--bg:#080c12;--panel:#141a23;--panel2:#1a2230;--panel3:#273243;--text:#f6f8fb;--muted:#97a3b4;--border:rgba(255,255,255,.08);--accent:#8b5cf6;--accent2:#beaaff}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif}
-body{min-height:100dvh}button,input,textarea,select{font:inherit}button{cursor:pointer}
-.app{height:100dvh;display:flex;flex-direction:column}
-.header{height:58px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 12px;border-bottom:1px solid var(--border);background:#090d13}
-.brand{display:flex;align-items:center;gap:9px;min-width:0;font-weight:850;letter-spacing:-.02em}
-.brand-icon{width:37px;height:37px;flex:none;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#6366f1);font-size:19px}
-.brand-text{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.brand small{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:2px}
-.icon-btn{width:40px;height:40px;flex:none;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--text)}
-.main{height:calc(100dvh - 58px);padding:7px;display:flex}
-.question-card{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px 15px}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--text);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{min-height:100dvh}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.app{height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
+.header{height:60px;min-height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#080c12;border-bottom:1px solid rgba(255,255,255,.08);position:relative;z-index:20;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
+.brand{display:flex;align-items:center;gap:9px;min-width:0;font-weight:850;letter-spacing:-.02em;opacity:1;filter:none}
+.brand-icon{width:38px;height:38px;flex:none;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#6366f1);font-size:19px;opacity:1;filter:none;box-shadow:none}
+.brand-text{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);opacity:1;filter:none}
+.brand small{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:2px;opacity:1;filter:none}
+.icon-btn{width:40px;height:40px;flex:none;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--text);opacity:1;filter:none}
+.main{height:calc(100dvh - 60px);padding:7px;display:flex;background:var(--bg)}
+.question-card{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px 15px;box-shadow:none;filter:none}
 .category{padding:7px 11px;border-radius:999px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.24);color:var(--accent2);font-size:11px;font-weight:850}
-.question{width:100%;font-size:clamp(29px,8.6vw,41px);line-height:1.08;letter-spacing:-.045em;margin:20px auto 28px}
-.actions{width:100%;display:flex;flex-direction:column-reverse;gap:9px}.btn{width:100%;min-height:50px;border:1px solid var(--border);border-radius:14px;background:var(--panel2);color:var(--text);font-weight:760;padding:0 14px}.btn.primary{background:linear-gradient(135deg,var(--accent),#6366f1);border-color:transparent}
-.overlay{position:fixed;inset:0;display:none;align-items:flex-end;background:rgba(2,5,9,.84);z-index:50}.overlay.open{display:flex}
-.modal{width:100%;max-height:95dvh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -25px 90px rgba(0,0,0,.5)}
-.mh{position:sticky;top:0;z-index:8;display:flex;align-items:center;justify-content:space-between;padding:14px 15px;background:var(--panel);border-bottom:1px solid var(--border)}
+.question{width:100%;font-size:clamp(29px,8.5vw,41px);line-height:1.08;letter-spacing:-.045em;margin:20px auto 28px}
+.actions{width:100%;display:flex;flex-direction:column-reverse;gap:9px}
+.btn{width:100%;min-height:50px;border:1px solid var(--border);border-radius:14px;background:var(--panel2);color:var(--text);font-weight:760;padding:0 14px}
+.btn.primary{background:linear-gradient(135deg,var(--accent),#6366f1);border-color:transparent}
+.overlay{position:fixed;inset:0;display:none;align-items:flex-end;background:rgba(2,5,9,.82);z-index:50;backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
+.overlay.open{display:flex}
+.modal{width:100%;max-height:95dvh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -25px 90px rgba(0,0,0,.48);backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
+.mh{position:sticky;top:0;z-index:8;display:flex;align-items:center;justify-content:space-between;padding:14px 15px;background:#141a23;border-bottom:1px solid var(--border);filter:none}
 .mb{padding:14px 15px 20px}.muted{color:var(--muted);font-size:11px;line-height:1.45}.section-title{font-size:13px;font-weight:850}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.row .btn{flex:1;min-width:0}.hr{height:1px;background:var(--border);margin:17px 0}
 .selector-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px}.selector-state{color:var(--muted);font-size:10px}
@@ -25,33 +32,61 @@ body{min-height:100dvh}button,input,textarea,select{font:inherit}button{cursor:p
 .grid{display:grid;grid-template-columns:1fr;gap:7px;margin-top:9px}.check{display:flex;align-items:center;gap:9px;min-height:44px;padding:9px 10px;background:var(--panel2);border:1px solid var(--border);border-radius:11px;font-size:12px}.check input{width:17px;height:17px;accent-color:var(--accent)}
 .nav{display:grid;gap:7px;margin-top:10px}.nav-item{width:100%;min-height:49px;display:flex;align-items:center;justify-content:space-between;gap:9px;padding:0 12px;border:1px solid var(--border);border-radius:12px;background:var(--panel2);color:var(--text);text-align:left}.nav-left{display:flex;align-items:center;gap:9px;min-width:0}.nav-sub{display:block;color:var(--muted);font-size:9px;margin-top:2px}.arrow{color:var(--muted)}
 .stat-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}.stat{padding:10px;border:1px solid var(--border);border-radius:12px;background:var(--panel2)}.stat strong{display:block;font-size:18px}.stat span{display:block;color:var(--muted);font-size:9px}
-.back-btn{width:100%;min-height:50px;margin-top:10px;border:1px solid rgba(187,168,255,.24);border-radius:14px;background:rgba(139,92,246,.08);color:var(--accent2);font-weight:850}
-.field{display:grid;gap:5px;margin-top:9px}.field label{font-size:10px;color:var(--muted);font-weight:850}
-.input,.textarea,.select{width:100%;min-height:48px;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel2);color:var(--text);outline:none}.textarea{min-height:100px;resize:vertical}
-.error{display:none;color:#ff929a;font-size:11px;margin-top:5px}
-.admin-hint{margin:8px 0 10px;font-size:9px;color:var(--muted)}.admin-list{display:grid;gap:7px}.q-item{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:var(--panel2)}
-.q-actions{position:absolute;right:0;top:0;bottom:0;width:102px;background:var(--panel3);display:flex;align-items:center;justify-content:center}.edit-btn{width:82px;height:40px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#374255;color:#fff;font-size:11px;font-weight:850}
-.q-surface{position:relative;min-height:78px;padding:11px 12px;background:var(--panel2);transform:translateX(0);transition:transform .18s ease;touch-action:pan-y}.q-item.swiped .q-surface{transform:translateX(-102px)}
-.q-number{font-size:9px;color:var(--accent2);font-weight:900;margin-bottom:4px}.q-meta{font-size:9px;color:var(--muted);margin-bottom:5px}.q-text{font-size:12px;line-height:1.38}
-.toolbar{display:grid;gap:7px;margin-top:10px}.pagination{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-top:10px}.small-btn{min-height:38px;padding:0 11px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:10px;font-weight:800}.page-label{color:var(--muted);font-size:9px}
-.empty{text-align:center;padding:20px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);font-size:11px}
+.back-btn{width:100%;min-height:50px;margin-top:10px;border:1px solid rgba(190,170,255,.24);border-radius:14px;background:rgba(139,92,246,.08);color:var(--accent2);font-weight:850}
+.field{display:grid;gap:5px;margin-top:9px}.field label{font-size:10px;color:var(--muted);font-weight:850}.input,.textarea,.select{width:100%;min-height:48px;padding:11px 12px;border-radius:12px;border:1px solid var(--border);background:var(--panel2);color:var(--text);outline:none}.textarea{min-height:100px;resize:vertical}.error{display:none;color:#ff929a;font-size:11px;margin-top:5px}
+.admin-toolbar{display:grid;gap:7px;margin-top:10px}.admin-toolbar .input,.admin-toolbar .select{width:100%}.admin-hint{margin:8px 0 10px;font-size:9px;color:var(--muted)}.list{display:grid;gap:7px}
+.q-item{position:relative;overflow:hidden;border:1px solid var(--border);border-radius:12px;background:var(--panel2)}.q-actions{position:absolute;right:0;top:0;bottom:0;width:102px;background:var(--panel3);display:flex;align-items:center;justify-content:center}.edit-btn{width:82px;height:40px;border:1px solid rgba(255,255,255,.1);border-radius:10px;background:#374255;color:#fff;font-size:11px;font-weight:850}.q-surface{position:relative;min-height:78px;padding:11px 12px;background:var(--panel2);transform:translateX(0);transition:transform .18s ease;touch-action:pan-y}.q-item.swiped .q-surface{transform:translateX(-102px)}.q-number{font-size:9px;color:var(--accent2);font-weight:900;margin-bottom:4px}.q-meta{font-size:9px;color:var(--muted);margin-bottom:5px}.q-text{font-size:12px;line-height:1.38}
+.pagination{display:flex;align-items:center;justify-content:space-between;gap:7px;margin-top:10px}.small-btn{min-height:38px;padding:0 11px;border-radius:10px;border:1px solid var(--border);background:var(--panel2);color:var(--text);font-size:10px;font-weight:800}.page-label{color:var(--muted);font-size:9px}.empty{text-align:center;padding:20px;border:1px dashed var(--border);border-radius:12px;color:var(--muted);font-size:11px}
+.admin-hero{padding:12px;border:1px solid rgba(190,170,255,.15);border-radius:14px;background:rgba(139,92,246,.07)}.admin-hero-title{font-size:14px;font-weight:900}.admin-hero-sub{font-size:10px;color:var(--muted);margin-top:3px}
 .toast{position:fixed;z-index:100;left:50%;bottom:15px;max-width:calc(100% - 24px);white-space:nowrap;transform:translate(-50%,10px);opacity:0;pointer-events:none;background:#111823;color:#fff;border:1px solid var(--border);padding:10px 13px;border-radius:12px;font-size:11px;transition:.18s}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:360px){.question{font-size:28px}.brand small{display:none}}
 </style>
-</head><body>
+
+</head><body style="backdrop-filter:none;-webkit-backdrop-filter:none;filter:none;">
 <div class="app">
 <header class="header"><div class="brand"><div class="brand-icon">💬</div><div class="brand-text">Tô Sem Assunto<small>Perguntas para conhecer alguém melhor</small></div></div><button class="icon-btn" id="settings">⚙️</button></header>
 <main class="main"><section class="question-card"><div class="category" id="category"></div><div class="question" id="question">Carregando...</div><div class="actions"><button class="btn" id="favorite">♡ Favoritar</button><button class="btn primary" id="next">🔄 Outra pergunta</button></div></section></main>
 </div>
 
-<div class="overlay" id="settingsOverlay"><div class="modal"><div class="mh"><strong>⚙️ Ajustes</strong><button class="icon-btn" id="closeSettings">✕</button></div><div class="mb">
-<div class="section-title">Catálogos</div><div class="muted">Escolha os tipos de conversa que podem aparecer.</div>
-<div class="selector-head"><span class="selector-state" id="catalogState"></span><button class="toggle-all" id="toggleCatalogs">Tudo ou nada</button></div><div class="grid" id="catalogGrid"></div>
-<div class="hr"></div><div class="section-title">Perguntas</div><div class="stat-grid"><div class="stat"><strong id="usedStat">0</strong><span>usadas</span></div><div class="stat"><strong id="favStat">0</strong><span>favoritas</span></div><div class="stat"><strong id="availableStat">0</strong><span>disponíveis</span></div><div class="stat"><strong id="totalStat">0</strong><span>total</span></div></div>
+
+<div class="overlay" id="settingsOverlay"><div class="modal">
+<div class="mh"><strong>⚙️ Ajustes</strong><button class="icon-btn" id="closeSettings">✕</button></div>
+<div class="mb">
+
+<div class="admin-hero">
+  <div class="admin-hero-title">🔐 Acesso ADM</div>
+  <div class="admin-hero-sub">Gerencie perguntas, assuntos e todo o catálogo.</div>
+  <div class="row"><button class="btn primary" id="adminEntry">👑 Entrar como ADM</button></div>
+  <div class="row" id="adminDirectRow" style="display:none"><button class="btn" id="adminDirect">Abrir painel ADM</button></div>
+</div>
+
+<div class="hr"></div>
+
+<div class="section-title">Catálogos</div>
+<div class="muted">Escolha os tipos de conversa que podem aparecer.</div>
+<div class="selector-head"><span class="selector-state" id="catalogState"></span><button class="toggle-all" id="toggleCatalogs">Tudo ou nada</button></div>
+<div class="grid" id="catalogGrid"></div>
+
+<div class="hr"></div>
+
+<div class="section-title">Perguntas</div>
+<div class="stat-grid">
+<div class="stat"><strong id="usedStat">0</strong><span>usadas</span></div>
+<div class="stat"><strong id="favStat">0</strong><span>favoritas</span></div>
+<div class="stat"><strong id="availableStat">0</strong><span>disponíveis</span></div>
+<div class="stat"><strong id="totalStat">0</strong><span>total</span></div>
+</div>
 <div class="row"><button class="btn" id="resetUsed">♻️ Zerar usadas</button></div>
-<div class="hr"></div><div class="section-title">Assuntos específicos</div><div class="muted">Escolha exatamente quais assuntos podem gerar perguntas.</div><div class="nav" id="topicNav"></div>
-<div class="hr"></div><div class="section-title">🔐 Acesso ADM</div><div class="muted">Editar perguntas, cadastrar novas e criar assuntos.</div><div class="row"><button class="btn primary" id="adminEntry">👑 Entrar como ADM</button></div><div class="row" id="adminDirectRow" style="display:none"><button class="btn" id="adminDirect">Abrir painel ADM</button></div>
-<button class="back-btn" id="backToPalco">← Voltar para o Palco Pro</button><div class="row"><button class="btn" id="closeSettings2">Fechar</button></div>
+
+<div class="hr"></div>
+
+<div class="section-title">Assuntos específicos</div>
+<div class="muted">Entre em um catálogo para escolher exatamente quais assuntos poderão gerar perguntas.</div>
+<div class="nav" id="topicNav"></div>
+
+<button class="back-btn" id="backToPalco">← Voltar para o Palco Pro</button>
+<div class="row"><button class="btn" id="closeSettings2">Fechar</button></div>
+
 </div></div></div>
 
 <div class="overlay" id="topicsOverlay"><div class="modal"><div class="mh"><strong id="topicsTitle">📚 Assuntos</strong><button class="icon-btn" id="closeTopics">✕</button></div><div class="mb"><div class="muted" id="topicsSub"></div><div class="selector-head"><span class="selector-state" id="topicState"></span><button class="toggle-all" id="toggleTopics">Tudo ou nada</button></div><div class="grid" id="topicGrid"></div></div></div></div>
