@@ -1,4 +1,10 @@
-<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'><meta name='theme-color' content='#090d13'><title>Tô Sem Assunto</title>
+<!doctype html><html lang='pt-BR'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1,viewport-fit=cover'>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="format-detection" content="telephone=no">
+<meta name='theme-color' content='#090d13'><title>Tô Sem Assunto</title>
 
 <style>
 :root{--bg:#080c12;--panel:#141a23;--panel2:#1a2230;--panel3:#273243;--text:#f6f8fb;--muted:#97a3b4;--border:rgba(255,255,255,.08);--accent:#8b5cf6;--accent2:#beaaff}
@@ -34,7 +40,7 @@ mix-blend-mode:normal!important
 .overlay{position:fixed;inset:0;display:none;align-items:flex-end;background:rgba(2,5,9,.82);z-index:50;backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
 .overlay.open{display:flex}
 .modal{width:100%;max-height:95dvh;overflow:auto;background:var(--panel);border:1px solid var(--border);border-bottom:0;border-radius:20px 20px 0 0;box-shadow:0 -25px 90px rgba(0,0,0,.48);backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
-.mh{position:sticky;top:0;z-index:8;display:flex;align-items:center;justify-content:space-between;padding:14px 15px;background:#141a23;border-bottom:1px solid var(--border);filter:none}
+.mh{position:relative;z-index:8;display:flex;align-items:center;justify-content:space-between;padding:14px 15px;background:#141a23;border-bottom:1px solid var(--border);filter:none}
 .mb{padding:14px 15px 20px}.muted{color:var(--muted);font-size:11px;line-height:1.45}.section-title{font-size:13px;font-weight:850}
 .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}.row .btn{flex:1;min-width:0}.hr{height:1px;background:var(--border);margin:17px 0}
 .selector-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:11px}.selector-state{color:var(--muted);font-size:10px}
@@ -71,6 +77,69 @@ html body .app > .header *::after{
   backdrop-filter:none!important;
   -webkit-backdrop-filter:none!important;
   filter:none!important;
+}
+
+
+/* iPHONE / PWA — CABEÇALHO TOTALMENTE OPACO */
+.app{
+  height:100dvh!important;
+  min-height:100dvh!important;
+  background:#080c12!important;
+  filter:none!important;
+  transform:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+.header{
+  height:calc(60px + env(safe-area-inset-top))!important;
+  min-height:calc(60px + env(safe-area-inset-top))!important;
+  padding:env(safe-area-inset-top) 12px 0 12px!important;
+  background:#080c12!important;
+  background-color:#080c12!important;
+  background-image:none!important;
+  color:#f6f8fb!important;
+  border-bottom:1px solid #202833!important;
+  position:relative!important;
+  top:auto!important;
+  z-index:999999!important;
+  box-shadow:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  opacity:1!important;
+  transform:none!important;
+  isolation:isolate!important;
+  contain:paint!important;
+  mix-blend-mode:normal!important;
+  will-change:auto!important;
+}
+.header > *{
+  opacity:1!important;
+  filter:none!important;
+  transform:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  mix-blend-mode:normal!important;
+}
+.main{
+  height:calc(100dvh - 60px - env(safe-area-inset-top))!important;
+  min-height:0!important;
+  padding:7px!important;
+  touch-action:pan-y!important;
+  overscroll-behavior:none!important;
+}
+
+
+/* Interação de app: sem duplo toque para zoom e sem seleção acidental */
+html,body,.app,.main,.question-card,.header,button{
+  -webkit-user-select:none!important;
+  user-select:none!important;
+}
+button,input,textarea,select{
+  touch-action:manipulation;
+}
+.question-card,.header,.main{
+  overscroll-behavior:none!important;
 }
 
 </style>
@@ -236,6 +305,30 @@ $('saveTopic').onclick=()=>{const cat=$('topicAdminCategory').value,name=$('topi
 
 function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
 $('loginOverlay').onclick=e=>{if(e.target.id==='loginOverlay')closeLogin()};$('adminOverlay').onclick=e=>{if(e.target.id==='adminOverlay')closeAdmin()};$('editOverlay').onclick=e=>{if(e.target.id==='editOverlay')closeEdit()};$('topicAdminOverlay').onclick=e=>{if(e.target.id==='topicAdminOverlay')$('topicAdminOverlay').classList.remove('open')};
+
+
+/* CONTROLES DE GESTO PARA MODO APP NO IPHONE */
+(function(){
+  let lastTouchEnd=0;
+  document.addEventListener('gesturestart', function(e){ e.preventDefault(); }, {passive:false});
+  document.addEventListener('gesturechange', function(e){ e.preventDefault(); }, {passive:false});
+  document.addEventListener('gestureend', function(e){ e.preventDefault(); }, {passive:false});
+  document.addEventListener('touchend', function(e){
+    const now=Date.now();
+    if(now-lastTouchEnd<=280 && !e.target.closest('input,textarea,select')){
+      e.preventDefault();
+    }
+    lastTouchEnd=now;
+  }, {passive:false});
+})();
+
+(function(){
+  document.addEventListener('touchmove', function(e){
+    if(e.touches && e.touches.length>1){
+      e.preventDefault();
+    }
+  }, {passive:false});
+})();
 
 renderCatalogs();stats();nextQuestion();
 </script>
