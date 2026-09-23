@@ -14,23 +14,8 @@ body{min-height:100dvh}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .app{height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
-.header{
-height:60px!important;min-height:60px!important;flex:none!important;
-display:flex!important;align-items:center!important;justify-content:space-between!important;
-padding:0 12px!important;background:#080c12!important;background-color:#080c12!important;
-background-image:none!important;border-bottom:1px solid #1f2732!important;
-position:relative!important;z-index:9999!important;
-box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
-filter:none!important;opacity:1!important;transform:none!important;
-isolation:isolate!important;contain:layout paint style!important;will-change:auto!important;
-mix-blend-mode:normal!important
-}
-.brand{display:flex;align-items:center;gap:9px;min-width:0;font-weight:850;letter-spacing:-.02em;opacity:1;filter:none}
-.brand-icon{width:38px;height:38px;flex:none;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#6366f1);font-size:19px;opacity:1;filter:none;box-shadow:none}
-.brand-text{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);opacity:1;filter:none}
-.brand small{display:block;color:var(--muted);font-size:9px;font-weight:500;margin-top:2px;opacity:1;filter:none}
 .icon-btn{width:40px;height:40px;flex:none;border:1px solid var(--border);border-radius:12px;background:var(--panel);color:var(--text);opacity:1;filter:none}
-.main{height:calc(100dvh - 60px);padding:7px;display:flex;background:var(--bg)}
+.main{width:100%;height:100dvh;min-height:100dvh;padding:7px;display:flex;background:var(--bg)}
 .question-card{width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--panel);border:1px solid var(--border);border-radius:18px;padding:20px 15px;box-shadow:none;filter:none}
 .category{padding:7px 11px;border-radius:999px;background:rgba(139,92,246,.12);border:1px solid rgba(139,92,246,.24);color:var(--accent2);font-size:11px;font-weight:850}
 .question{width:100%;font-size:clamp(29px,8.5vw,41px);line-height:1.08;letter-spacing:-.045em;margin:20px auto 28px}
@@ -142,12 +127,95 @@ button,input,textarea,select{
   overscroll-behavior:none!important;
 }
 
+
+/* TOPO INTEGRADO AO APP — SEM CAMADA FIXA/STICKY */
+body,html,.app,.main,.question-card,.in-card-appbar,.in-card-brand,.in-card-icon,.in-card-title{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  opacity:1!important;
+  transform:none!important;
+  mix-blend-mode:normal!important;
+  text-shadow:none!important;
+}
+.in-card-appbar{
+  width:100%;
+  height:42px;
+  min-height:42px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:0;
+  margin:0 0 6px 0;
+  background:#141a23;
+  background-image:none;
+  border:0;
+  box-shadow:none;
+  position:relative;
+  z-index:1;
+  isolation:isolate;
+}
+.in-card-brand{
+  min-width:0;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  background:transparent;
+  background-image:none;
+}
+.in-card-icon{
+  width:32px;
+  height:32px;
+  flex:none;
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  background:#7c58e8;
+  background-image:none;
+  color:#fff;
+  font-size:16px;
+}
+.in-card-title{
+  min-width:0;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  color:#f6f8fb;
+  font-size:15px;
+  font-weight:850;
+  letter-spacing:-.02em;
+}
+.question-card{
+  padding-top:calc(12px + env(safe-area-inset-top))!important;
+  padding-bottom:calc(18px + env(safe-area-inset-bottom))!important;
+}
+.question-card::before,.question-card::after,
+.in-card-appbar::before,.in-card-appbar::after,
+.in-card-brand::before,.in-card-brand::after,
+.in-card-icon::before,.in-card-icon::after,
+.in-card-title::before,.in-card-title::after{
+  content:none!important;
+  display:none!important;
+  filter:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+
 </style>
 
 </head><body style="backdrop-filter:none;-webkit-backdrop-filter:none;filter:none;">
 <div class="app">
-<header class="header"><div class="brand"><div class="brand-icon">💬</div><div class="brand-text">Tô Sem Assunto</div></div><button class="icon-btn" id="settings">⚙️</button></header>
-<main class="main"><section class="question-card"><div class="category" id="category"></div><div class="question" id="question">Carregando...</div><div class="actions"><button class="btn" id="favorite">♡ Favoritar</button><button class="btn primary" id="next">🔄 Outra pergunta</button></div></section></main>
+
+<main class="main"><section class="question-card">
+<div class="in-card-appbar">
+  <div class="in-card-brand">
+    <div class="in-card-icon">💬</div>
+    <div class="in-card-title">Tô Sem Assunto</div>
+  </div>
+  <button class="icon-btn" id="settings" aria-label="Ajustes">⚙️</button>
+</div>
+<div class="category" id="category"></div><div class="question" id="question">Carregando...</div><div class="actions"><button class="btn" id="favorite">♡ Favoritar</button><button class="btn primary" id="next">🔄 Outra pergunta</button></div></section></main>
 </div>
 
 
@@ -328,6 +396,22 @@ $('loginOverlay').onclick=e=>{if(e.target.id==='loginOverlay')closeLogin()};$('a
       e.preventDefault();
     }
   }, {passive:false});
+})();
+
+
+(function(){
+  let lastEnd=0;
+  document.addEventListener('gesturestart',e=>e.preventDefault(),{passive:false});
+  document.addEventListener('gesturechange',e=>e.preventDefault(),{passive:false});
+  document.addEventListener('gestureend',e=>e.preventDefault(),{passive:false});
+  document.addEventListener('touchmove',e=>{
+    if(e.touches&&e.touches.length>1)e.preventDefault();
+  },{passive:false});
+  document.addEventListener('touchend',e=>{
+    const now=Date.now();
+    if(now-lastEnd<280&&!e.target.closest('input,textarea,select'))e.preventDefault();
+    lastEnd=now;
+  },{passive:false});
 })();
 
 renderCatalogs();stats();nextQuestion();
