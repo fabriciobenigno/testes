@@ -8,7 +8,17 @@ body{min-height:100dvh}
 button,input,textarea,select{font:inherit}
 button{cursor:pointer}
 .app{height:100dvh;display:flex;flex-direction:column;background:var(--bg)}
-.header{height:60px;min-height:60px;display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#080c12;border-bottom:1px solid rgba(255,255,255,.08);position:relative;z-index:20;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;filter:none}
+.header{
+height:60px!important;min-height:60px!important;flex:none!important;
+display:flex!important;align-items:center!important;justify-content:space-between!important;
+padding:0 12px!important;background:#080c12!important;background-color:#080c12!important;
+background-image:none!important;border-bottom:1px solid #1f2732!important;
+position:relative!important;z-index:9999!important;
+box-shadow:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;
+filter:none!important;opacity:1!important;transform:none!important;
+isolation:isolate!important;contain:layout paint style!important;will-change:auto!important;
+mix-blend-mode:normal!important
+}
 .brand{display:flex;align-items:center;gap:9px;min-width:0;font-weight:850;letter-spacing:-.02em;opacity:1;filter:none}
 .brand-icon{width:38px;height:38px;flex:none;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),#6366f1);font-size:19px;opacity:1;filter:none;box-shadow:none}
 .brand-text{min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--text);opacity:1;filter:none}
@@ -40,13 +50,37 @@ button{cursor:pointer}
 .admin-hero{padding:12px;border:1px solid rgba(190,170,255,.15);border-radius:14px;background:rgba(139,92,246,.07)}.admin-hero-title{font-size:14px;font-weight:900}.admin-hero-sub{font-size:10px;color:var(--muted);margin-top:3px}
 .toast{position:fixed;z-index:100;left:50%;bottom:15px;max-width:calc(100% - 24px);white-space:nowrap;transform:translate(-50%,10px);opacity:0;pointer-events:none;background:#111823;color:#fff;border:1px solid var(--border);padding:10px 13px;border-radius:12px;font-size:11px;transition:.18s}.toast.show{opacity:1;transform:translate(-50%,0)}
 @media(max-width:360px){.question{font-size:28px}.brand small{display:none}}
+
+/* HEADER SEM DESFOQUE - ISOLADO */
+html body .app > .header,
+html body .app > .header *{
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+  opacity:1!important;
+  transform:none!important;
+  mix-blend-mode:normal!important;
+  text-shadow:none!important;
+}
+html body .app > .header::before,
+html body .app > .header::after,
+html body .app > .header *::before,
+html body .app > .header *::after{
+  display:none!important;
+  content:none!important;
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+  filter:none!important;
+}
+
 </style>
 
 </head><body style="backdrop-filter:none;-webkit-backdrop-filter:none;filter:none;">
 <div class="app">
-<header class="header"><div class="brand"><div class="brand-icon">💬</div><div class="brand-text">Tô Sem Assunto<small>Perguntas para conhecer alguém melhor</small></div></div><button class="icon-btn" id="settings">⚙️</button></header>
+<header class="header"><div class="brand"><div class="brand-icon">💬</div><div class="brand-text">Tô Sem Assunto</div></div><button class="icon-btn" id="settings">⚙️</button></header>
 <main class="main"><section class="question-card"><div class="category" id="category"></div><div class="question" id="question">Carregando...</div><div class="actions"><button class="btn" id="favorite">♡ Favoritar</button><button class="btn primary" id="next">🔄 Outra pergunta</button></div></section></main>
 </div>
+
 
 
 <div class="overlay" id="settingsOverlay"><div class="modal">
@@ -57,6 +91,7 @@ button{cursor:pointer}
   <div class="admin-hero-title">🔐 Acesso ADM</div>
   <div class="admin-hero-sub">Gerencie perguntas, assuntos e todo o catálogo.</div>
   <div class="row"><button class="btn primary" id="adminEntry">👑 Entrar como ADM</button></div>
+  <button class="back-btn" id="backToPalco">← Voltar para o Palco Pro</button>
   <div class="row" id="adminDirectRow" style="display:none"><button class="btn" id="adminDirect">Abrir painel ADM</button></div>
 </div>
 
@@ -84,9 +119,7 @@ button{cursor:pointer}
 <div class="muted">Entre em um catálogo para escolher exatamente quais assuntos poderão gerar perguntas.</div>
 <div class="nav" id="topicNav"></div>
 
-<button class="back-btn" id="backToPalco">← Voltar para o Palco Pro</button>
 <div class="row"><button class="btn" id="closeSettings2">Fechar</button></div>
-
 </div></div></div>
 
 <div class="overlay" id="topicsOverlay"><div class="modal"><div class="mh"><strong id="topicsTitle">📚 Assuntos</strong><button class="icon-btn" id="closeTopics">✕</button></div><div class="mb"><div class="muted" id="topicsSub"></div><div class="selector-head"><span class="selector-state" id="topicState"></span><button class="toggle-all" id="toggleTopics">Tudo ou nada</button></div><div class="grid" id="topicGrid"></div></div></div></div>
@@ -150,6 +183,30 @@ $('resetUsed').onclick=()=>{const set=new Set(activeQuestions().map(q=>q.text));
 
 // Retorno ao Palco Pro
 $('backToPalco').onclick=()=>{try{if(typeof window.PALCO_PRO_VOLTAR==='function'){window.PALCO_PRO_VOLTAR();return}if(window.parent&&window.parent!==window){window.parent.postMessage({type:'PALCO_PRO_BACK',source:'to-sem-assunto'},'*');return}window.dispatchEvent(new CustomEvent('palco-pro:voltar',{detail:{source:'to-sem-assunto'}}));if(history.length>1){history.back();return}}catch(e){}toast('Configure o retorno no projeto principal.')};
+
+
+// RETORNO AO PALCO PRO
+if (!window.__TSA_PALCO_RETURN_BOUND) {
+  window.__TSA_PALCO_RETURN_BOUND = true;
+  $('backToPalco').onclick=()=>{
+    try{
+      if(typeof window.PALCO_PRO_VOLTAR==='function'){
+        window.PALCO_PRO_VOLTAR();
+        return;
+      }
+      if(window.parent && window.parent!==window){
+        window.parent.postMessage({type:'PALCO_PRO_BACK',source:'to-sem-assunto'},'*');
+        return;
+      }
+      window.dispatchEvent(new CustomEvent('palco-pro:voltar',{detail:{source:'to-sem-assunto'}}));
+      if(history.length>1){
+        history.back();
+        return;
+      }
+    }catch(e){}
+    toast('O retorno precisa ser ligado ao Palco Pro.');
+  };
+}
 
 // ADM login
 function openLogin(){$('adminUser').value='';$('adminPass').value='';$('loginError').style.display='none';$('loginOverlay').classList.add('open');setTimeout(()=>$('adminUser').focus(),80)}
